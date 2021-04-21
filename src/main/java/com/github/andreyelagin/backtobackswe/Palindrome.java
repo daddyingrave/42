@@ -29,12 +29,6 @@ public class Palindrome {
 
     return true;
   }
-
-  public static void main(String[] args) {
-    System.out.println(isPalindrome(1234));
-    System.out.println(isPalindrome(1221));
-    System.out.println(isPalindrome(9239));
-  }
 }
 
   
