@@ -29,11 +29,11 @@ public class MinimumTimeDifference {
     return hours * 60 + minutes;
   }
 
-  private static final int DAYTIME_SECONDS = 24 * 60;
+  private static final int DAYTIME_MINUTES = 24 * 60;
 
   private static int findMin(int left, int right) {
     int diff = Math.abs(left - right);
-    int complement = DAYTIME_SECONDS - diff;
+    int complement = DAYTIME_MINUTES - diff;
     return Math.min(diff, complement);
   }
 }
