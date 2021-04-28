@@ -1,4 +1,4 @@
-package com.github.andreyelagin.backtobackswe;
+package com.github.andreyelagin.backtobackswe.primitives;
 
 public class ChangingBase {
   public static String changeBase(String numAsString, int b1, int b2) {

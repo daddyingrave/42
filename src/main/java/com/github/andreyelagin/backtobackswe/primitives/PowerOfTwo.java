@@ -1,4 +1,4 @@
-package com.github.andreyelagin.backtobackswe;
+package com.github.andreyelagin.backtobackswe.primitives;
 
 public class PowerOfTwo {
   public static boolean powerOfTwo(int input) {

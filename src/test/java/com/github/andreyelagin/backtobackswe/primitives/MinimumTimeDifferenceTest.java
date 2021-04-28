@@ -1,5 +1,6 @@
-package com.github.andreyelagin.backtobackswe;
+package com.github.andreyelagin.backtobackswe.primitives;
 
+import com.github.andreyelagin.backtobackswe.primitives.MinimumTimeDifference;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

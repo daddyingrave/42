@@ -1,4 +1,4 @@
-package com.github.andreyelagin.backtobackswe;
+package com.github.andreyelagin.backtobackswe.primitives;
 
 public class AddStrings {
   public static String addStrings(String s1, String s2) {

@@ -1,4 +1,4 @@
-package com.github.andreyelagin.backtobackswe;
+package com.github.andreyelagin.backtobackswe.primitives;
 
 import java.util.Arrays;
 import java.util.List;
