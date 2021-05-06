@@ -2,6 +2,31 @@ package com.github.andreyelagin.backtobackswe.arrays;
 
 public class SubarraySum {
   public int countSubarrays(int[] arr, int k) {
+    int[] cumulativeSum = new int[arr.length];
+    cumulativeSum[0] = arr[0];
+
+    for (int i = 1; i < arr.length; i++) {
+      cumulativeSum[i] = cumulativeSum[i - 1] + arr[i];
+    }
+    
+    int count = 0;
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = i; j < arr.length; j++) {
+        int temp = arr[j];
+        if (j != 0) {
+          temp = cumulativeSum[j] - temp;
+        }
+        
+        if (temp == k) {
+          count++;
+        }
+      }
+    }
+
+    return count;
+  }
+
+  public int countSubarraysNaive(int[] arr, int k) {
     int count = 0;
 
     for (int i = 0; i < arr.length; i++) {
@@ -13,7 +38,6 @@ public class SubarraySum {
         sum += arr[j];
         if (sum == k) {
           count++;
-
         }
       }
     }
