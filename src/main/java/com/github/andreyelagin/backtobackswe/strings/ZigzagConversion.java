@@ -14,7 +14,6 @@ public class ZigzagConversion {
       sbs[index].append(c);
       if (index == rows - 1 || index == 0) {
         down = !down;
-
       }
       if (rows > 1) {
         if (down) {
