@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GroupAnagrams {
   public List<List<String>> groupAnagrams(List<String> words) {
-    var map = new HashMap<List<Integer>, List<String>>();
+    var map = new HashMap<String, List<String>>();
 
     for (String word : words) {
       var key = countLetters(word);
@@ -25,17 +25,18 @@ public class GroupAnagrams {
     return new ArrayList<>(map.values());
   }
 
-  private List<Integer> countLetters(String s) {
-    var list = new ArrayList<Integer>(26);
-    for (int i = 0; i < 26; i++) {
-      list.add(0);
-    }
+  private String countLetters(String s) {
+    int[] arr = new int[26];
 
     for (int i = 0; i < s.length(); i++) {
-      int index = Character.toLowerCase(s.charAt(i)) - 'a';
-      list.set(index, list.get(index) + 1);
+      arr[Character.toLowerCase(s.charAt(i)) - 'a']++;
     }
 
-    return list;
+    var sb = new StringBuilder();
+    for (int i : arr) {
+      sb.append(i);
+    }
+
+    return sb.toString();
   }
 }
