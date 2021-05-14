@@ -9,9 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class EvenOddPartitionTest {
 
   EvenOddPartition evenOddPartition = new EvenOddPartition();
-  
+
   @Test
   void oddEvenList() {
-    evenOddPartition.oddEvenList(ListNode.build(List.of(1, 2, 3, 4, 5)));
+    assertEquals(
+        ListNode.build(List.of(1, 3, 5, 2, 4)),
+        evenOddPartition.oddEvenList(ListNode.build(List.of(1, 2, 3, 4, 5))));
+    ;
   }
 }
