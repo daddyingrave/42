@@ -43,7 +43,6 @@ public class ListNode {
       return false;
     }
     
-    boolean eq = true;
     var curCur = next;
     var curOther = listNode.next;
     
@@ -62,7 +61,7 @@ public class ListNode {
       return false;
     }
     
-    return eq;
+    return true;
   }
 
   @Override

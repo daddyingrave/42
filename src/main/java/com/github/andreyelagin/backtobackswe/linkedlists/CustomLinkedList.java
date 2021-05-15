@@ -8,9 +8,12 @@ public class CustomLinkedList {
   private int size;
 
   public CustomLinkedList() {
+    this.head = new ListNode(Integer.MIN_VALUE);
   }
 
   public CustomLinkedList(ListNode node) {
+    this.head = new ListNode(Integer.MIN_VALUE);
+
     int count = 0;
     var cur = node;
     while (cur != null) {
@@ -18,19 +21,20 @@ public class CustomLinkedList {
       count++;
     }
     size = count;
-    head = node;
+    this.head.next = node;
   }
 
   public CustomLinkedList(int value) {
+    head = new ListNode(Integer.MIN_VALUE);
     this.head = new ListNode(value);
   }
 
   public int get(int index) {
-    if (index >= size) {
+    if (index < 0 || index >= size) {
       return -1;
     }
 
-    var cur = head;
+    var cur = head.next;
     while (index > 0) {
       cur = cur.next;
       index--;
@@ -41,31 +45,23 @@ public class CustomLinkedList {
 
   public void addAtHead(int value) {
     var newNode = new ListNode(value);
-    newNode.next = head;
-    head = newNode;
+    newNode.next = head.next;
+    head.next = newNode;
     size++;
   }
 
   public void addAtTail(int value) {
-    int count = size;
     var cur = head;
-
-    while (count > 1) {
+    while (cur.next != null) {
       cur = cur.next;
-      count--;
-    }
-    
-    if (cur == null) {
-      head = new ListNode(value);
-    } else {
-      cur.next = new ListNode(value);
     }
 
+    cur.next = new ListNode(value);
     size++;
   }
 
   public void addAtIndex(int index, int value) {
-    if (index >= size) {
+    if (index < 0 || index >= size) {
       return;
     }
 
@@ -75,26 +71,26 @@ public class CustomLinkedList {
       index--;
     }
 
-    var oldNext = cur.next;
-    cur.next = new ListNode(value);
-    cur.next.next = oldNext;
-    
+    ListNode newNode = new ListNode(value);
+    newNode.next = cur.next;
+    cur.next = newNode;
+
     size++;
   }
 
   public void deleteAtIndex(int index) {
-    if (index >= size) {
+    if (index < 0 || index >= size) {
       return;
     }
 
     var cur = head;
-    while (index > 1) {
+    while (index > 0) {
       cur = cur.next;
       index--;
     }
 
     cur.next = cur.next.next;
-    
+
     size--;
   }
 
@@ -107,7 +103,7 @@ public class CustomLinkedList {
       return false;
     }
 
-    return head.equals(((CustomLinkedList) o).head);
+    return head.next.equals(that.head.next);
   }
 
   @Override
@@ -117,6 +113,6 @@ public class CustomLinkedList {
 
   @Override
   public String toString() {
-    return head.toString();
+    return head.next.toString();
   }
 }
