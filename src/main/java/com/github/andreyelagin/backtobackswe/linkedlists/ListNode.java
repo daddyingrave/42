@@ -47,6 +47,10 @@ public class ListNode {
     var curCur = next;
     var curOther = listNode.next;
     
+    if (curCur == null && curOther == curCur) {
+      return true;
+    }
+    
     while (curCur.next != null && curOther.next != null) {
       if (curCur.next.val != curOther.next.val) {
         return false;
