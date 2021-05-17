@@ -28,6 +28,10 @@ public class AddIntegersRepresentedAsLinkedLists {
       accIterator.next = new ListNode(sum);
       accIterator = accIterator.next;
     }
+    
+    if (carry > 0) {
+      accIterator.next = new ListNode(1);  
+    }
 
     return accumulator.next;
   }

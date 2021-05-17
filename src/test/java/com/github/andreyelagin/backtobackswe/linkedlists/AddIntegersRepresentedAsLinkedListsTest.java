@@ -33,5 +33,12 @@ class AddIntegersRepresentedAsLinkedListsTest {
             ListNode.build(List.of(5, 9, 2))
         )
     );
+    assertEquals(
+        ListNode.build(List.of(8, 9, 9, 1)),
+        addLists.addTwoNumbers(
+            ListNode.build(List.of(9, 9, 9)),
+            ListNode.build(List.of(9, 9, 9))
+        )
+    );
   }
 }
