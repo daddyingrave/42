@@ -4,20 +4,15 @@ import java.util.HashSet;
 
 public class TestingForCycles {
   public boolean hasCycle(ListNode head) {
-    if (head == null || head.next == null) {
-      return false;
-    }
-    
     var slow = head;
     var fast = head;
+    
     while (fast != null && fast.next != null) {
-      var curSlow = slow.next;
-      var curFast = fast.next.next;
-      if (curFast != null && curFast.val == curSlow.val) {
+      slow = slow.next;
+      fast = fast.next.next;
+      if (fast != null && fast.val == slow.val) {
         return true;
       }
-      slow = curSlow;
-      fast = curFast;
     }
     
     return false;
