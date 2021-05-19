@@ -19,7 +19,7 @@ class TestingForCyclesTest {
     }
     cur.next = headWithCycle;
 
-    var headWithoutCycle = ListNode.build(List.of(1, 2, 3, 4, 5));
+    var headWithoutCycle = ListNode.build(List.of(1, 2, 3, 4, 5, 6));
 
     assertTrue(cycles.hasCycle(headWithCycle));
     assertFalse(cycles.hasCycle(headWithoutCycle));

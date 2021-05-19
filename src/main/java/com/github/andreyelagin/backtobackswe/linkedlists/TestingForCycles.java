@@ -10,9 +10,9 @@ public class TestingForCycles {
     
     var slow = head;
     var fast = head;
-    while (fast != null) {
+    while (fast != null && fast.next != null) {
       var curSlow = slow.next;
-      var curFast = fast.next == null ? null : fast.next.next;
+      var curFast = fast.next.next;
       if (curFast != null && curFast.val == curSlow.val) {
         return true;
       }
