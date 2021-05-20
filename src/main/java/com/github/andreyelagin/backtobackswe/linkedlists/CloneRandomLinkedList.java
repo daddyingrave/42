@@ -14,7 +14,9 @@ public class CloneRandomLinkedList {
 
     cur = head;
     while (cur != null) {
-      cur.next.random = cur.random != null ? cur.random.next : null;
+      if (cur.random != null) {
+        cur.next.random = cur.random.next;
+      }
       cur = cur.next.next;
     }
 
@@ -22,7 +24,9 @@ public class CloneRandomLinkedList {
     var newHead = head.next;
     while (cur != null) {
       var next = cur.next.next;
-      cur.next.next = cur.next.next != null ? cur.next.next.next : null;
+      if (cur.next.next != null) {
+        cur.next.next = cur.next.next.next;
+      }
       cur = next;
     }
 
