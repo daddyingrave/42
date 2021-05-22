@@ -1,9 +1,34 @@
 package com.github.andreyelagin.backtobackswe.stacksandqueues;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 public class BalancedParenthesesProblem {
   public boolean isValid(String s) {
+    var mappings = new HashMap<Character, Character>();
+    mappings.put(')', '(');
+    mappings.put(']', '[');
+    mappings.put('}', '{');
+    var stack = new Stack<Character>();
+
+    for (int i = 0; i < s.length(); i++) {
+      var cur = s.charAt(i);
+      if (mappings.containsKey(cur)) {
+        if (stack.empty()) {
+          return false;
+        }
+        if (mappings.get(cur) != stack.pop()) {
+          return false;
+        }
+      } else {
+        stack.push(cur);
+      }
+    }
+
+    return stack.empty();
+  }
+
+  public boolean isValidMy(String s) {
     var stack = new Stack<Character>();
 
     for (int i = 0; i < s.length(); i++) {
@@ -26,7 +51,7 @@ public class BalancedParenthesesProblem {
           }
       }
     }
-    
+
     return stack.empty();
   }
 
