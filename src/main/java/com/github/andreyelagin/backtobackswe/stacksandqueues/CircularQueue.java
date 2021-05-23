@@ -1,7 +1,6 @@
 package com.github.andreyelagin.backtobackswe.stacksandqueues;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -21,7 +20,7 @@ public class CircularQueue {
     }
     state[tail] = x;
 
-    tail = (tail + 1) % state.length;
+    tail = (tail + 1);
     size++;
   }
 
@@ -29,24 +28,22 @@ public class CircularQueue {
     if (size == 0) {
       throw new NoSuchElementException("Queue is empty.");
     }
-    
+
     var item = state[head];
-    head = (head + 1) % state.length;
+    head = (head + 1);
     size--;
-    
+
     return item;
   }
-  
+
   public int size() {
     return size;
   }
-  
+
   private void resize() {
-    Collections.rotate(Arrays.asList(state), -head);
-    head = 0;
-    tail = size;
-    
-    state = Arrays.copyOf(state, size * 3 / 2);;
+    var newArr = new int[size * 3 / 2];
+    System.arraycopy(state, head, newArr, 0, state.length - head);
+    state = newArr;
   }
 
   @Override
