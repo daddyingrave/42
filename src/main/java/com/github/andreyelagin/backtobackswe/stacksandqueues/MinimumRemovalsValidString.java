@@ -22,6 +22,7 @@ public class MinimumRemovalsValidString {
         }
       }
     }
+    
     while (!openParenthesis.isEmpty()) {
       var index = openParenthesis.pop();
       sb2.deleteCharAt(index);
