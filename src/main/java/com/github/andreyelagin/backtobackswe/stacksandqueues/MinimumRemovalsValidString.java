@@ -1,13 +1,14 @@
 package com.github.andreyelagin.backtobackswe.stacksandqueues;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Stack;
 
 public class MinimumRemovalsValidString {
   public String makeStringValid(String s) {
     var openParenthesis = new Stack<Integer>();
     var indexesToRemove = new ArrayList<Integer>();
+
+    var sb2 = new StringBuilder(s);
 
     for (int i = 0; i < s.length(); i++) {
       var curChar = s.charAt(i);
@@ -17,28 +18,15 @@ public class MinimumRemovalsValidString {
         if (!openParenthesis.isEmpty()) {
           openParenthesis.pop();
         } else {
-          indexesToRemove.add(i);
+          sb2.replace(i, i + 1, " ");
         }
       }
     }
     while (!openParenthesis.isEmpty()) {
-      indexesToRemove.add(openParenthesis.pop());
+      var index = openParenthesis.pop();
+      sb2.deleteCharAt(index);
     }
 
-    Collections.sort(indexesToRemove);
-    var arr = s.toCharArray();
-
-    for (Integer index : indexesToRemove) {
-      arr[index] = '*';
-    }
-
-    var sb = new StringBuilder();
-    for (char c : arr) {
-      if (c != '*') {
-        sb.append(c);
-      }
-    }
-    
-    return sb.toString();
+    return sb2.toString().replaceAll(" ", "");
   }
 }
