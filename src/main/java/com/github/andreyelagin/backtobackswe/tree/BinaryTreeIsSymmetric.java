@@ -14,8 +14,8 @@ public class BinaryTreeIsSymmetric {
     }
     if (left != null && right != null) {
       return left.val == right.val
-          && checkSymmetry(left.left, left.right)
-          && checkSymmetry(right.left, right.right);
+          && checkSymmetry(left.right, right.left)
+          && checkSymmetry(left.left, right.right);
     }
     
     return false;
