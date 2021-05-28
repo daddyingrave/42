@@ -2,10 +2,10 @@ package com.github.andreyelagin.backtobackswe.tree;
 
 public class BSTFromSortedArray {
   public TreeNode sortedArrayToBST(int[] nums) {
-    return build(nums, 0, nums.length);
+    return buildBst(nums, 0, nums.length);
   }
 
-  private TreeNode build(int[] nums, int left, int right) {
+  private TreeNode buildBst(int[] nums, int left, int right) {
     if (left >= right) {
       return null;
     }
@@ -13,8 +13,8 @@ public class BSTFromSortedArray {
     int middle = left + ((right - left) / 2);
     var root = new TreeNode(nums[middle]);
 
-    root.left = build(nums, left, middle);
-    root.right = build(nums, middle + 1, right);
+    root.left = buildBst(nums, left, middle);
+    root.right = buildBst(nums, middle + 1, right);
     
     return root;
   }
