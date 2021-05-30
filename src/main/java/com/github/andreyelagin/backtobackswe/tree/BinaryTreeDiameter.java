@@ -2,19 +2,29 @@ package com.github.andreyelagin.backtobackswe.tree;
 
 public class BinaryTreeDiameter {
   public int diameterOfBinaryTree(TreeNode root) {
-    return findDiameter(root)[0];
+    return findDiameter(root).diameter;
   }
 
-  private int[] findDiameter(TreeNode node) {
+  private CurrentDiameter findDiameter(TreeNode node) {
     if (node == null) {
-      return new int[]{0, 0};
+      return new CurrentDiameter(0, 0);
     }
     var left = findDiameter(node.left);
     var right = findDiameter(node.right);
 
-    var maxDiameter = Math.max(left[0], right[0]);
-    var bestDiameter = Math.max(maxDiameter, left[1] + right[1]);
-    var height = Math.max(left[1], right[1]) + 1;
-    return new int[]{bestDiameter, height};
+    var maxDiameter = Math.max(left.diameter, right.diameter);
+    var bestDiameter = Math.max(maxDiameter, left.height + right.height);
+    var height = Math.max(left.height, right.height) + 1;
+    return new CurrentDiameter(bestDiameter, height);
+  }
+
+  private static class CurrentDiameter {
+    public int diameter;
+    public int height;
+
+    public CurrentDiameter(int diameter, int height) {
+      this.diameter = diameter;
+      this.height = height;
+    }
   }
 }
