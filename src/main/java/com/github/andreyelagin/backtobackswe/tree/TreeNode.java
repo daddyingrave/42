@@ -23,6 +23,7 @@ class TreeNode {
     if (o == null || getClass() != o.getClass()) return false;
     TreeNode treeNode = (TreeNode) o;
     
+    // doesn't work
     return val == treeNode.val
         && (treeNode.left == left || treeNode.left.equals(left))
         && (treeNode.right == right || treeNode.right.equals(right));
