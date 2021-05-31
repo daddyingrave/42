@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class InorderTraversalWithoutRecursion {
-  public List<Integer> inorderTraversal(TreeNode root) {
+  public static List<Integer> inorderTraversal(TreeNode root) {
     var result = new ArrayList<Integer>();
     var stack = new Stack<TreeNode>();
 
