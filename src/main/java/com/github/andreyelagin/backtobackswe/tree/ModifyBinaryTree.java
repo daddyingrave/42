@@ -8,7 +8,7 @@ public class ModifyBinaryTree {
       return new TreeNode(nodeToInsert);
     }
 
-    if (node.val > nodeToInsert) {
+    if (nodeToInsert < node.val) {
       node.left = insert(node.left, nodeToInsert);
     } else {
       node.right = insert(node.right, nodeToInsert);
@@ -22,9 +22,9 @@ public class ModifyBinaryTree {
       return null;
     }
 
-    if (node.val > nodeToDelete) {
+    if (nodeToDelete < node.val) {
       node.left = delete(node.left, nodeToDelete);
-    } else if (node.val < nodeToDelete) {
+    } else if (nodeToDelete > node.val) {
       node.right = delete(node.right, nodeToDelete);
     } else {
       if (node.left == null) {
@@ -33,7 +33,7 @@ public class ModifyBinaryTree {
         return node.left;
       }
 
-      var nextInorder = getNextInorderNode(node);
+      var nextInorder = getNextInorderNode(node.right);
       node.val = nextInorder.val;
 
       node.right = delete(node.right, nextInorder.val);
