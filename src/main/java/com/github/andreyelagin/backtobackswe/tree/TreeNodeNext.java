@@ -1,8 +1,13 @@
 package com.github.andreyelagin.backtobackswe.tree;
 
-public class TreeNodeNext extends TreeNode {
-  public TreeNode next;
+import static com.github.andreyelagin.backtobackswe.tree.InorderTraversalWithoutRecursion.inorderTraversal;
+
+public class TreeNodeNext {
+  public int val;
+  public TreeNodeNext next;
+  public TreeNodeNext left, right;
+
   public TreeNodeNext(int val) {
-    super(val);
+    this.val = val;
   }
 }
