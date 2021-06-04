@@ -18,29 +18,26 @@ public class Trie {
   }
 
   public boolean search(String word) {
+    TrieNode cur = getNode(word);
+    if (cur == null) return false;
+    return cur.word;
+  }
+
+  public boolean startsWith(String prefix) {
+    return getNode(prefix) != null;
+  }
+
+  private TrieNode getNode(String word) {
     var cur = root;
     for (int i = 0; i < word.length(); i++) {
       var letter = word.charAt(i);
       var index = letter - 'a';
-      if (cur.children[index].character != letter) {
-        return false;
+      if (cur.children[index] == null) {
+        return null;
       }
       cur = cur.children[index];
     }
-    return cur.word;
-  }
-  
-  public boolean startsWith(String prefix) {
-    var cur = root;
-    for (int i = 0; i < prefix.length(); i++) {
-      var letter = prefix.charAt(i);
-      var index = letter - 'a';
-      if (cur.children[index] == null || cur.children[index].character != letter) {
-        return false;
-      }
-      cur = cur.children[index];
-    }
-    return true;
+    return cur;
   }
 
   private static class TrieNode {
