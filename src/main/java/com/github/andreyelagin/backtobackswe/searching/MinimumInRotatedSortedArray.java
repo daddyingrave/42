@@ -2,7 +2,7 @@ package com.github.andreyelagin.backtobackswe.searching;
 
 public class MinimumInRotatedSortedArray {
   public int findMin(int[] nums) {
-    int mid = nums.length / 2;
+    int mid;
     int l = 0;
     int r = nums.length - 1;
 
