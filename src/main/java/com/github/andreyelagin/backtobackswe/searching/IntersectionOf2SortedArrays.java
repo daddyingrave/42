@@ -17,15 +17,10 @@ public class IntersectionOf2SortedArrays {
         }
         first++;
         second++;
+      } else if (nums1[first] < nums2[second]) {
+        first++;
       } else {
-        if (result.size() > 0) {
-          break;
-        }
-        if (nums1.length > nums2.length) {
-          first++;
-        } else {
-          second++;
-        }
+        second++;
       }
     }
 
