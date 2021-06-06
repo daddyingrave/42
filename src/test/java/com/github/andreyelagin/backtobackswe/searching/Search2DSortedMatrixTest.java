@@ -30,7 +30,6 @@ class Search2DSortedMatrixTest {
             666
         )
     );
-    assertFalse(search.search(new int[][] {}, 666)
-    );
+    assertFalse(search.search(new int[][] {}, 666));
   }
 }
