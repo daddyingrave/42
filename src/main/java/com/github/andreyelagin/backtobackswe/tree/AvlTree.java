@@ -3,109 +3,116 @@ package com.github.andreyelagin.backtobackswe.tree;
 public class AvlTree {
 
   public TreeNode insertAVL(int[] items, int threshold) {
-    var root = new AvlNode(items[0]);
+    var root = new AVLNode(items[0]);
+
     for (int i = 1; i < items.length; i++) {
-      insert(root, items[i], threshold);
+      root = insert(root, items[i], threshold);
     }
 
     return avlToTree(root);
+    
   }
-  
-  private TreeNode avlToTree(AvlNode node) {
+
+  private TreeNode avlToTree(AVLNode node) {
+    if (node == null) {
+      return null;
+    }
+
     var root = new TreeNode(node.val);
 
     root.left = avlToTree(node.left);
     root.right = avlToTree(node.right);
-    
+
     return root;
   }
-  
-  private AvlNode insert(AvlNode node, int value, int threshold) {
+
+  private AVLNode insert(AVLNode node, int value, int threshold) {
     if (node == null) {
-      return new AvlNode(value);
+      return new AVLNode(value);
     }
-    if (node.val < value) {
-      node.right = insert(node.right, value, threshold);
-    } else {
+
+    if (value < node.val) {
       node.left = insert(node.left, value, threshold);
+    } else {
+      node.right = insert(node.right, value, threshold);
     }
-    
-    int height = Math.max(height(node.left), height(node.right)) + 1;
-    int rootBalance = balance(node);
-    
+
+    node.height  = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+    int rootBalance = getBalance(node);
+
     if (rootBalance > threshold) {
-      if (balance(node.left) >= 0) {
+      if (getBalance(node.left) >= 0) {
         node = rotateRight(node);
       } else {
         node = rotateLeftRight(node);
       }
     } else if (rootBalance < -threshold) {
-      if (balance(node.right) >= 0) {
+      if (getBalance(node.right) <= 0) {
         node = rotateLeft(node);
       } else {
         node = rotateRightLeft(node);
       }
     }
-    
+
     return node;
   }
 
-  private AvlNode rotateRightLeft(AvlNode node) {
+  private AVLNode rotateRightLeft(AVLNode node) {
     node.right = rotateRight(node.right);
     return rotateLeft(node);
   }
 
-  private AvlNode rotateLeftRight(AvlNode node) {
+  private AVLNode rotateLeftRight(AVLNode node) {
     node.left = rotateLeft(node.left);
     return rotateRight(node);
   }
 
-  private AvlNode rotateLeft(AvlNode node) {
+  private AVLNode rotateLeft(AVLNode node) {
     var tempRight = node.right;
-    node.right = tempRight.left;
     
+    node.right = tempRight.left;
     tempRight.left = node;
 
-    node.height = Math.max(height(node.left), height(node.right)) + 1;
-    tempRight.height = Math.max(height(tempRight.left), height(tempRight.right)) + 1;
-    
+    node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+    tempRight.height = Math.max(getHeight(tempRight.left), getHeight(tempRight.right)) + 1;
+
     return tempRight;
   }
 
-  private AvlNode rotateRight(AvlNode node) {
+  private AVLNode rotateRight(AVLNode node) {
     var tempLeft = node.left;
+    
     node.left = tempLeft.right;
-    
     tempLeft.right = node;
-    
-    node.height = Math.max(height(node.left), height(node.right)) + 1;
-    tempLeft.height = Math.max(height(tempLeft.left), height(tempLeft.right)) + 1;
-    
+
+    node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+    tempLeft.height = Math.max(getHeight(tempLeft.left), getHeight(tempLeft.right)) + 1;
+
     return tempLeft;
   }
 
-  private int height(AvlNode node) {
+  private int getHeight(AVLNode node) {
     if (node == null) {
       return -1;
     }
-    
+
     return node.height;
   }
-  
-  private int balance(AvlNode node) {
+
+  private int getBalance(AVLNode node) {
     if (node == null) {
       return 0;
     }
-    return height(node.left) - height(node.right);
+    return getHeight(node.left) - getHeight(node.right);
   }
-  
-  private static class AvlNode {
+
+  private static class AVLNode {
     public int val;
-    public AvlNode left;
-    public AvlNode right;
+    public AVLNode left;
+    public AVLNode right;
     public int height;
 
-    public AvlNode(int val) {
+    public AVLNode(int val) {
       this.val = val;
     }
   }
