@@ -19,7 +19,7 @@ public class MaxHeap {
   
   private void bubble() {
     int index = size - 1;
-    while (hasParent(index) && arr[index] < parent(index)) {
+    while (hasParent(index) && arr[index] > parent(index)) {
       int parentIndex = parentIndex(index);
       swap(parentIndex, index);
       index = parentIndex;
@@ -31,14 +31,34 @@ public class MaxHeap {
       throw new RuntimeException("Remove impossible. Empty heap");
     }
     
-    return 0;
+    int index = 0;
+    int head = arr[index];
+    arr[index] = arr[--size];
+
+    while (hasLeftChild(index)) {
+      int greatestChildIndex = leftChildIndex(index);
+      
+      if (hasRightChild(index) && rightChild(index) > leftChild(index)) {
+        greatestChildIndex = rightChildIndex(index);
+      }
+      
+      if (arr[index] < arr[greatestChildIndex]) {
+        swap(index, greatestChildIndex);
+        index = greatestChildIndex;
+      } else {
+        break;
+      }
+    }
+    
+    return head;
   }
   
   public int peek() {
     if (empty()) {
       throw new RuntimeException("Peek impossible. Empty heap");
     }
-    return 0;
+    
+    return arr[0];
   }
   
   public boolean empty() {
@@ -58,15 +78,15 @@ public class MaxHeap {
   }
   
   private int leftChildIndex(int parentIndex) {
-    return arr[2 * parentIndex + 1];
+    return 2 * parentIndex + 1;
   }
 
   private int rightChildIndex(int parentIndex) {
-    return arr[2 * parentIndex + 2];
+    return 2 * parentIndex + 2;
   }
   
   private int parentIndex(int childIndex) {
-    return arr[(childIndex - 1) / 2];
+    return (childIndex - 1) / 2;
   }
   
   private boolean hasLeftChild(int parentIndex) {
