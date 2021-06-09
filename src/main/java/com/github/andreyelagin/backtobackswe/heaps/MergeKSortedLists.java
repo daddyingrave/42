@@ -13,19 +13,18 @@ public class MergeKSortedLists {
       heap.offer(list);
     }
     
-    var cur = heap.poll();
     var head = new ListNode(666);
     var headPointer = head;
     
-    while (cur != null) {
+    while (!heap.isEmpty()) {
+      var cur = heap.poll();
+      
       headPointer.next = cur;
       headPointer = cur;
       
       if (cur.next != null) {
         heap.offer(cur.next);
       }
-      
-      cur = heap.poll();
     }
     
     return head.next;
