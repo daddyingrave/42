@@ -10,7 +10,7 @@ class KthLargestElementTest {
   
   @Test
   void kthLargest() {
-    assertEquals(6, kthLargestElement.kthLargest(new int[]{1, 2, 3, 4, 5, 6}, 1));
     assertEquals(1, kthLargestElement.kthLargest(new int[]{1, 2, 3, 4, 5, 6}, 6));
+    assertEquals(6, kthLargestElement.kthLargest(new int[]{1, 2, 3, 4, 5, 6}, 1));
   }
 }

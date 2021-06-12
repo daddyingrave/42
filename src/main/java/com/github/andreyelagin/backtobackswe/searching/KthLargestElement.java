@@ -1,11 +1,23 @@
 package com.github.andreyelagin.backtobackswe.searching;
 
-import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class KthLargestElement {
-  // haha
   public int kthLargest(int[] arr, int k) {
-    Arrays.sort(arr);
-    return arr[arr.length - k];
+    var heap = new PriorityQueue<Integer>();
+
+    for (int i : arr) {
+      if (heap.size() > k) {
+        heap.poll();
+      }
+
+      heap.offer(i);
+    }
+
+    while (heap.size() > k) {
+      heap.poll();
+    }
+
+    return heap.peek();
   }
 }
