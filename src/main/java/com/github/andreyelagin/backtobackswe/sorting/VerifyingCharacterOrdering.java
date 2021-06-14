@@ -11,6 +11,36 @@ public class VerifyingCharacterOrdering {
       orderBindings.put(ordering.charAt(i), i);
     }
 
+    for (int i = 1; i < A.size(); i++) {
+      if (!customCompare(A.get(i - 1), A.get(i), orderBindings)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private boolean customCompare(String s1, String s2, HashMap<Character, Integer> order) {
+    int s1Length = s1.length();
+    int s2Length = s2.length();
+
+    for (int i = 0; i < s1Length && i < s2Length; i++) {
+      char s1Char = s1.charAt(i);
+      char s2Char = s2.charAt(i);
+      if (s1Char != s2Char) {
+        return order.get(s1Char) < order.get(s2Char);
+      }
+    }
+
+    return s1Length < s2Length;
+  }
+
+  public boolean verifyOrderingMy(List<String> A, String ordering) {
+    var orderBindings = new HashMap<Character, Integer>();
+    for (int i = 0; i < ordering.length(); i++) {
+      orderBindings.put(ordering.charAt(i), i);
+    }
+
     Comparator<String> comp = (s1, s2) -> {
       if (s1.equals(s2)) {
         return 0;
