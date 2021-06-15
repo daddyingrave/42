@@ -4,18 +4,18 @@ import com.github.andreyelagin.backtobackswe.linkedlists.ListNode;
 
 public class MergeSort {
   public ListNode mergeSort(ListNode head) {
-    return split(head, null);
+    return split(head);
   }
 
-  private ListNode split(ListNode node, ListNode rightLimit) {
+  private ListNode split(ListNode node) {
     if (node == null || node.next == null) {
       return node;
     }
     
-    var middle = middle(node, rightLimit);
+    var middle = middle(node);
     
-    var leftSorted = split(node, middle);
-    var rightSorted = split(middle.next, null);
+    var leftSorted = split(node);
+    var rightSorted = split(middle);
     
     return merge(leftSorted, rightSorted);
   }
@@ -28,7 +28,7 @@ public class MergeSort {
     var ptr = dummy;
     while (curLeft != null || curRight != null) {
       if (curLeft != null && curRight != null) {
-        if (curLeft.val > curRight.val) {
+        if (curLeft.val < curRight.val) {
           ptr.next = curLeft;
           curLeft = curLeft.next;
         } else {
@@ -50,21 +50,25 @@ public class MergeSort {
     return dummy.next;
   }
 
-  private ListNode middle(ListNode head, ListNode rightLimit) {
+  private ListNode middle(ListNode head) {
     int count = 0;
     var cur = head;
-    while (cur != null && !cur.equals(rightLimit)) {
+    while (cur != null) {
       count++;
       cur = cur.next;
     }
     
     cur = head;
+    ListNode prev = null;
     int iterations = count / 2;
     while (iterations > 0) {
+      prev = cur;
       cur = cur.next;
       iterations--;
     }
-    
+    if (prev != null) {
+      prev.next = null;
+    }
     return cur;
   }
 }
