@@ -35,16 +35,14 @@ public class MergeSort {
           ptr.next = curRight;
           curRight = curRight.next;
         }
-        ptr = ptr.next;
       } else if (curLeft == null) {
         ptr.next = curRight;
         curRight = curRight.next;
-        ptr = ptr.next;
       } else {
         ptr.next = curLeft;
         curLeft = curLeft.next;
-        ptr = ptr.next;
       }
+      ptr = ptr.next;
     }
     
     return dummy.next;
