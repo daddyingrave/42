@@ -1,6 +1,7 @@
 package com.github.andreyelagin.backtobackswe.recursionbacktracking;
 
 import java.util.Objects;
+import java.util.Stack;
 
 public class SearchLinkedListWithJumpReferences {
   public void setJumpReferences(ListNodeJump node) {
@@ -18,6 +19,27 @@ public class SearchLinkedListWithJumpReferences {
 
     traverseAndSet(node.jump, order);
     traverseAndSet(node.next, order);
+  }
+
+  public void setJumpReferencesIterative(ListNodeJump node) {
+    int order = 0;
+    var stack = new Stack<ListNodeJump>();
+    stack.push(node);
+
+    while (!stack.isEmpty()) {
+      var cur = stack.pop();
+      
+      if (cur.val == -1) {
+        cur.val = order++;
+
+        if (cur.next != null) {
+          stack.push(cur.next);
+        }
+        if (cur.jump != null) {
+          stack.push(cur.jump);
+        }
+      }
+    }
   }
 
   static class Int {
