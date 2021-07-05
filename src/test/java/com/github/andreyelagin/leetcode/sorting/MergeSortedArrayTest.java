@@ -14,7 +14,7 @@ class MergeSortedArrayTest {
     var toSort1 = new int[]{1, 2, 3, 0, 0, 0};
     var toSort2 = new int[]{2, 5, 6};
 
-    mergeSortedArray.merge(toSort1, 3, toSort2, 3);
+    mergeSortedArray.mergeEnd(toSort1, 3, toSort2, 3);
     
     assertArrayEquals(expected, toSort1);
   }
