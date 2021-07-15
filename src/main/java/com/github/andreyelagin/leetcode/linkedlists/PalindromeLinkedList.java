@@ -11,7 +11,6 @@ public class PalindromeLinkedList {
 
     var slowPtr = dummy;
     var quickPtr = dummy;
-    var dummyHead = dummy;
 
     var stack = new Stack<ListNode>();
 
