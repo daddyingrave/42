@@ -6,29 +6,18 @@ public class OddEvenLinkedList {
       return head;
     }
     
-    ListNode dummyOdd = new ListNode();
-    ListNode dummyEven = new ListNode();
-    var oddHead = dummyOdd;
-    var evenHead = dummyEven;
-    
-    var cur = head;
-    boolean odd = true;
-    while (cur != null) {
-      if (odd) {
-        dummyOdd.next = cur;
-        dummyOdd = dummyOdd.next;
-        odd = false;
-      } else {
-        dummyEven.next = cur;
-        dummyEven = dummyEven.next;
-        odd = true;
-      }
-      cur = cur.next;
+    var odd = head;
+    var even = head.next;
+    var evenHead = even;
+    while (even != null && even.next != null) {
+      odd.next = even.next;
+      odd = odd.next;
+      even.next = odd.next;
+      even = even.next;
     }
-    
-    dummyEven.next = null;
-    dummyOdd.next = evenHead.next;
-    
-    return oddHead.next;
+
+    odd.next = evenHead;
+
+    return head;
   }
 }
