@@ -6,7 +6,21 @@ import java.util.List;
 public class FindAllDuplicatesInArray {
   public List<Integer> findDuplicates(int[] nums) {
     var result = new ArrayList<Integer>();
+
+    for (int i = 0; i < nums.length; i++) {
+      if (nums[Math.abs(nums[i]) - 1] < 0) {
+        result.add(Math.abs(nums[i]));
+      }
+      
+      nums[Math.abs(nums[i]) - 1] *= -1;
+    }
     
+    return result;
+  }
+
+  public List<Integer> findDuplicatesMy(int[] nums) {
+    var result = new ArrayList<Integer>();
+
     int[] count = new int[nums.length + 1];
     for (int i = 0; i < nums.length; i++) {
       count[nums[i]]++;
@@ -17,7 +31,7 @@ public class FindAllDuplicatesInArray {
         result.add(i);
       }
     }
-    
+
     return result;
   }
 }
