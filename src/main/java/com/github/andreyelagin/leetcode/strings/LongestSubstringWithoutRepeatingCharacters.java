@@ -1,5 +1,6 @@
 package com.github.andreyelagin.leetcode.strings;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class LongestSubstringWithoutRepeatingCharacters {
@@ -7,22 +8,26 @@ public class LongestSubstringWithoutRepeatingCharacters {
     if (s == null || s.isEmpty()) {
       return 0;
     }
-    
-    var set = new HashSet<Character>();
-    
+
+    var charLocations = new HashMap<Character, Integer>();
+
     int maxLength = 0;
     int left = 0;
     int right = 1;
 
-    set.add(s.charAt(left));
-    
+    charLocations.put(s.charAt(left), left);
+
     while (right < s.length()) {
-      while (!set.add(s.charAt(right))) {
-        set.remove(s.charAt(left));
-        left++;
+      if (charLocations.containsKey(s.charAt(right))) {
+        left = Math.max(charLocations.get(s.charAt(right)) + 1, left);
+        charLocations.put(s.charAt(right), right);
       }
+
+      charLocations.put(s.charAt(right), right);
+
       right++;
       maxLength = Math.max(maxLength, right - left);
+
     }
 
     return s.length() == 1 ? 1 : maxLength;
