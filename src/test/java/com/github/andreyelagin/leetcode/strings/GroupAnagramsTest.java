@@ -14,9 +14,9 @@ class GroupAnagramsTest {
   void groupAnagrams() {
     assertEquals(
         List.of(
+            List.of("tan", "nat"),
             List.of("eat", "tea", "ate"),
-            List.of("bat"),
-            List.of("tan", "nat")
+            List.of("bat")
         ),
         problem.groupAnagrams(new String[]{"eat", "tea", "tan", "ate", "nat", "bat"})
     );

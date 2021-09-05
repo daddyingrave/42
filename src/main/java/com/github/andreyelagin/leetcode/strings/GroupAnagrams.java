@@ -11,9 +11,12 @@ public class GroupAnagrams {
 
     for (String str : strs) {
       var arr = str.toCharArray();
-      Arrays.sort(arr);
+      char[] symbolsCount = new char[26];
+      for (char c : arr) {
+        symbolsCount[c - 'a']++;
+      }
       
-      mappings.compute(new String(arr), (k, v) -> {
+      mappings.compute(new String(symbolsCount), (k, v) -> {
         if (v == null) {
           var words = new ArrayList<String>();
           words.add(str);
