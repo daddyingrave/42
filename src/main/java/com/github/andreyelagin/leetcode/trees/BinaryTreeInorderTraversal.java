@@ -2,6 +2,7 @@ package com.github.andreyelagin.leetcode.trees;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class BinaryTreeInorderTraversal {
   public List<Integer> inorderTraversal(TreeNode root) {
@@ -18,5 +19,29 @@ public class BinaryTreeInorderTraversal {
     traverse(node.left, values);
     values.add(node.val);
     traverse(node.right, values);
+  }
+
+  public List<Integer> inorderTraversalIterative(TreeNode root) {
+    var result = new ArrayList<Integer>();
+
+    var stack = new Stack<TreeNode>();
+    var cur = root;
+    
+    while (cur != null || !stack.isEmpty()) {
+      if (cur != null) {
+        while (cur != null) {
+          stack.push(cur);
+          cur = cur.left;
+        }
+      } else {
+        var last = stack.pop();
+        result.add(last.val);
+        if (last.right != null) {
+          cur = last.right;
+        }
+      }
+    }
+    
+    return result;
   }
 }

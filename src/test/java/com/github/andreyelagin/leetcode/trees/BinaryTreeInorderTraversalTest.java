@@ -18,15 +18,15 @@ class BinaryTreeInorderTraversalTest {
 
     assertEquals(
         List.of(1, 3, 2),
-        solution.inorderTraversal(n1)
+        solution.inorderTraversalIterative(n1)
     );
     assertEquals(
         List.of(),
-        solution.inorderTraversal(null)
+        solution.inorderTraversalIterative(null)
     );
     assertEquals(
         List.of(1),
-        solution.inorderTraversal(new TreeNode(1))
+        solution.inorderTraversalIterative(new TreeNode(1))
     );
     
   }
