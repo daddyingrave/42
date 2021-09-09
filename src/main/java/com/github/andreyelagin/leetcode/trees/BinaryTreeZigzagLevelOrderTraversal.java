@@ -1,45 +1,41 @@
 package com.github.andreyelagin.leetcode.trees;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class BinaryTreeZigzagLevelOrderTraversal {
   public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
     var result = new ArrayList<List<Integer>>();
 
     boolean direction = true;
-    Deque<TreeNode> deckLeft = new LinkedList<TreeNode>();
-    Deque<TreeNode> deckRight = new LinkedList<TreeNode>();
+    Stack<TreeNode> deckLeft = new Stack<TreeNode>();
+    Stack<TreeNode> deckRight = new Stack<TreeNode>();
 
     if (root != null) {
       deckLeft.push(root);
     }
-    // [3,9,20,null,null,15,7]
-    // [1,2,3,4,null,null,5]
+
     while (!deckLeft.isEmpty() || !deckRight.isEmpty()) {
       var currentLevelResult = new ArrayList<Integer>();
       if (!deckLeft.isEmpty()) {
         while (!deckLeft.isEmpty()) {
-          var node = deckLeft.removeFirst();
+          var node = deckLeft.pop();
           currentLevelResult.add(node.val);
           if (node.left != null) {
-            deckRight.addFirst(node.left);
+            deckRight.push(node.left);
           }
           if (node.right != null) {
-            deckRight.addFirst(node.right);
+            deckRight.push(node.right);
           }
         }
       } else {
         while (!deckRight.isEmpty()) {
-          var node = deckRight.removeFirst();
+          var node = deckRight.pop();
           currentLevelResult.add(node.val);
           if (node.right != null) {
-            deckLeft.addFirst(node.right);
+            deckLeft.push(node.right);
           }
           if (node.left != null) {
-            deckLeft.addFirst(node.left);
+            deckLeft.push(node.left);
           }
         }
       }
