@@ -21,39 +21,33 @@ public class LetterCombinationsOfPhoneNumber {
   }
 
   public List<String> letterCombinations(String digits) {
+    if (digits == null | digits.isEmpty()) {
+      return List.of();
+    }
+    
     var result = new ArrayList<String>();
 
-    backtrack(0, 0, new StringBuilder(), digits, result);
+    backtrack(0, new StringBuilder(), digits, result);
 
     return result;
   }
 
   private void backtrack(
-      int curDigitIndex,
-      int curLetterIndex,
-      int nextDigitIndex,
-      int nextLetterIndex,
+      int index,
       StringBuilder sb,
       String digits,
       List<String> result) {
-    if (curDigitIndex >= digits.length() - 1) {
+    if (index == digits.length()) {
+      result.add(sb.toString());
       return;
-    } else if (nextDigitIndex >= digits.length()) {
-      backtrack(curDigitIndex + 1, 0, curDigitIndex + 2, 0, new StringBuilder(), digits, result);
     }
     
-    else if (curLetterIndex >= phoneDigits.get(digits.charAt(curLetterIndex)).length) {
-      backtrack(curDigitIndex + 1, 0, curDigitIndex + 2, 0, new StringBuilder(), digits, result);
-    }
-//    else if (nextLetterIndex >= phoneDigits.get(digits.charAt(nextDigitIndex)).length) {
-//      // todo
-//      result.add(sb.toString());
-//      backtrack(nextDigitIndex + 1, 0, new StringBuilder(), digits, result);
-//    }
-
-    char curLetter = digits.charAt(nextDigitIndex);
-    var curPhoneLetter = phoneDigits.get(curLetter)[nextLetterIndex];
+    var letters = phoneDigits.get(digits.charAt(index));
     
-    backtrack(nextDigitIndex, nextLetterIndex + 1, sb, digits, result);
+    for (String c : letters) {
+      sb.append(c);
+      backtrack(index + 1, sb, digits, result);
+      sb.delete(sb.length() - 1, sb.length());
+    }
   }
 }
