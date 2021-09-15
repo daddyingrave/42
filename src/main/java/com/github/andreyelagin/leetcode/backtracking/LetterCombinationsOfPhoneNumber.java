@@ -21,7 +21,7 @@ public class LetterCombinationsOfPhoneNumber {
   }
 
   public List<String> letterCombinations(String digits) {
-    if (digits == null | digits.isEmpty()) {
+    if (digits == null || digits.isEmpty()) {
       return List.of();
     }
     
