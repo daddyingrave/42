@@ -27,4 +27,24 @@ class SortColorsTest {
 
     assertArrayEquals(expected, arr);
   }
+
+  @Test
+  void sortColors3() {
+    int[] arr = new int[]{0};
+    int[] expected = new int[]{0};
+
+    solution.sortColors(arr);
+
+    assertArrayEquals(expected, arr);
+  }
+
+  @Test
+  void sortColors4() {
+    int[] arr = new int[]{1};
+    int[] expected = new int[]{1};
+
+    solution.sortColors(arr);
+
+    assertArrayEquals(expected, arr);
+  }
 }
