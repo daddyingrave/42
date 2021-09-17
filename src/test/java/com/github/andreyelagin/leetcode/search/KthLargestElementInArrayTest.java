@@ -1,5 +1,6 @@
-package com.github.andreyelagin.leetcode.sorting;
+package com.github.andreyelagin.leetcode.search;
 
+import com.github.andreyelagin.leetcode.search.KthLargestElementInArray;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package com.github.andreyelagin.leetcode.sorting;
+package com.github.andreyelagin.leetcode.search;
 
 import java.util.PriorityQueue;
 
