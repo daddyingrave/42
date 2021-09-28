@@ -4,6 +4,10 @@ import java.util.*;
 
 public class TaskScheduler {
   public int leastInterval(char[] tasks, int n) {
+    if (n == 0) {
+      return tasks.length;
+    }
+
     int count = 0;
     int[] subCount = new int[26];
     for (char task : tasks) {
@@ -19,28 +23,34 @@ public class TaskScheduler {
 
     Deque<Character> idle = new LinkedList<>();
     var iterator = queue.iterator();
-    
-    while (!queue.isEmpty()) {
+
+    while (iterator.hasNext()) {
       var cur = iterator.next();
+      count++;
       if (idle.isEmpty()) {
         for (int i = 0; i < n; i++) {
           idle.addLast(cur.task);
         }
+        cur.dec();
       } else if (cur.task != idle.getFirst()) {
         idle.removeFirst();
-        if (idle.isEmpty()) {
-          iterator = queue.iterator();
-        }
+        cur.dec();
       } else {
-        idle.removeFirst();
+        while (idle.size() > 0 && idle.getFirst() == cur.task) {
+          count++;
+          idle.removeFirst();
+        }
+        continue;
       }
-      
-      cur.dec();
+
       if (cur.count <= 0) {
         iterator.remove();
       }
-      count++;
-      
+
+      if (idle.isEmpty()) {
+        iterator = queue.iterator();
+      }
+
       if (!iterator.hasNext()) {
         iterator = queue.iterator();
       }
@@ -57,7 +67,7 @@ public class TaskScheduler {
       this.task = task;
       this.count = count;
     }
-    
+
     public void dec() {
       this.count--;
     }
