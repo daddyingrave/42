@@ -3,7 +3,6 @@ package com.github.andreyelagin.leetcode.design;
 import java.util.*;
 
 public class TaskScheduler {
-  
   public int leastInterval(char[] tasks, int n) {
     if (n == 0) {
       return tasks.length;
@@ -15,7 +14,7 @@ public class TaskScheduler {
       subCount[task - 'A']++;
     }
 
-    PriorityQueue<int[]> queue = new PriorityQueue<>((l, r) -> l[0] != r[0] ? l[0] - r[0] : r[1] - l[1]);
+    PriorityQueue<int[]> queue = new PriorityQueue<>((l, r) -> l[1] != r[1] ? r[1] - l[1] : l[0] - r[0]);
     for (int i = 0; i < subCount.length; i++) {
       if (subCount[i] > 0) {
         queue.add(new int[]{'A' + i, subCount[i]});
@@ -42,7 +41,7 @@ public class TaskScheduler {
       if (queue.isEmpty()) {
         break;
       }
-      
+
       count += guard;
     }
 
