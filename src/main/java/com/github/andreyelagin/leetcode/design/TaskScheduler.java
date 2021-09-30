@@ -3,6 +3,7 @@ package com.github.andreyelagin.leetcode.design;
 import java.util.*;
 
 public class TaskScheduler {
+  
   public int leastInterval(char[] tasks, int n) {
     if (n == 0) {
       return tasks.length;
@@ -14,67 +15,37 @@ public class TaskScheduler {
       subCount[task - 'A']++;
     }
 
-    PriorityQueue<TaskCounter> queue = new PriorityQueue<>(Comparator.reverseOrder());
+    PriorityQueue<int[]> queue = new PriorityQueue<>((l, r) -> l[0] != r[0] ? l[0] - r[0] : r[1] - l[1]);
     for (int i = 0; i < subCount.length; i++) {
       if (subCount[i] > 0) {
-        queue.add(new TaskCounter((char) ('A' + i), subCount[i]));
+        queue.add(new int[]{'A' + i, subCount[i]});
       }
     }
 
-    Deque<Character> idle = new LinkedList<>();
-    var iterator = queue.iterator();
+    while (!queue.isEmpty()) {
+      int guard = n + 1;
 
-    while (iterator.hasNext()) {
-      var cur = iterator.next();
-      count++;
-      if (idle.isEmpty()) {
-        for (int i = 0; i < n; i++) {
-          idle.addLast(cur.task);
+      var temp = new ArrayList<int[]>();
+      while (guard > 0 && !queue.isEmpty()) {
+        var cur = queue.poll();
+        cur[1]--;
+        temp.add(cur);
+        count++;
+        guard--;
+      }
+
+      for (int[] ints : temp) {
+        if (ints[1] > 0) {
+          queue.offer(ints);
         }
-        cur.dec();
-      } else if (cur.task != idle.getFirst()) {
-        idle.removeFirst();
-        cur.dec();
-      } else {
-        while (idle.size() > 0 && idle.getFirst() == cur.task) {
-          count++;
-          idle.removeFirst();
-        }
-        continue;
       }
-
-      if (cur.count <= 0) {
-        iterator.remove();
+      if (queue.isEmpty()) {
+        break;
       }
-
-      if (idle.isEmpty()) {
-        iterator = queue.iterator();
-      }
-
-      if (!iterator.hasNext()) {
-        iterator = queue.iterator();
-      }
+      
+      count += guard;
     }
 
     return count;
-  }
-
-  private static class TaskCounter implements Comparable<TaskCounter> {
-    public char task;
-    public int count;
-
-    public TaskCounter(char task, int count) {
-      this.task = task;
-      this.count = count;
-    }
-
-    public void dec() {
-      this.count--;
-    }
-
-    @Override
-    public int compareTo(TaskCounter o) {
-      return this.count - o.count;
-    }
   }
 }
