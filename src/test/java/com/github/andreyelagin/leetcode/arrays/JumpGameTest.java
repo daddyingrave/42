@@ -13,6 +13,7 @@ class JumpGameTest {
     assertTrue(solution.canJump(new int[]{2, 3, 1, 1, 4}));
     assertTrue(solution.canJump(new int[]{2, 0}));
     assertTrue(solution.canJump(new int[]{2, 5, 0, 0}));
+    assertTrue(solution.canJump(new int[]{5, 9, 3, 2, 1, 0, 2, 3, 3, 1, 0, 0}));
     assertFalse(solution.canJump(new int[]{3, 2, 1, 0, 4}));
     assertFalse(solution.canJump(new int[]{3, 2, 1, 0, 4}));
   }
