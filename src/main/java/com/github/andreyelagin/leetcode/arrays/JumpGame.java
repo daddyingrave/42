@@ -18,6 +18,11 @@ public class JumpGame {
       }
       int currentIndex = i + 1;
       int iterations = nums[i];
+      
+      if (dp[Math.min(i + iterations, nums.length - 1)] == 1) {
+        continue;
+      }
+      
       while (currentIndex < nums.length && iterations > 0) {
         dp[currentIndex++] = 1;
         iterations--;
