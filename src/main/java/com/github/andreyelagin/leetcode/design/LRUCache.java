@@ -18,51 +18,50 @@ public class LRUCache {
   }
 
   public int get(int key) {
-    if (storage.containsKey(key)) {
-      var node = storage.get(key);
-      touch(node);
+    var node = storage.get(key);
+    if (node != null) {
+      remove(node);
+      insert(node);
       return node.val;
     } else {
       return -1;
     }
   }
 
-  private void touch(ListNodeLRU node) {
-    if (storage.size() > 1) {
-      var oldPrev = node.prev;
-      var oldNext = node.next;
-      oldPrev.next = oldNext;
-      oldNext.prev = oldPrev;
+  public void put(int key, int value) {
+    var node = storage.get(key);
+    if (node != null) {
+      node.val = value;
+      remove(node);
+      insert(node);
+    } else {
+      var newNode = new ListNodeLRU(key, value);
+      insert(newNode);
+      storage.put(key, newNode);
+    }
 
-      var prev = first.next;
-      first.next = node;
-      node.prev = first;
-      node.next = prev;
-      prev.prev = node;
+    if (storage.size() > capacity) {
+      storage.remove(first.next.key);
+      remove(first.next);
     }
   }
 
-  public void put(int key, int value) {
-    if (storage.containsKey(key)) {
-      var node = storage.get(key);
-      node.val = value;
-      touch(node);
-      return;
-    } else if (storage.size() == capacity) {
-      var latest = last.prev;
-      var lastPrev = last.prev.prev;
-      lastPrev.next = last;
-      storage.remove(latest.key);
+  private void insert(ListNodeLRU newNode) {
+    var recent = last;
+    var prev = last.prev;
+    recent.prev = newNode;
+    newNode.next = recent;
+    prev.next = newNode;
+    newNode.prev = prev;
+  }
+
+  private void remove(ListNodeLRU node) {
+    if (storage.size() > 0) {
+      var prev = node.prev;
+      var next = node.next;
+      prev.next = next;
+      next.prev = prev;
     }
-    
-    var newNode = new ListNodeLRU(key, value);
-    var prev = first.next;
-    first.next = newNode;
-    newNode.prev = first;
-    newNode.next = prev;
-    prev.prev = newNode;
-    
-    storage.put(key, newNode);
   }
 
   private static class ListNodeLRU {
