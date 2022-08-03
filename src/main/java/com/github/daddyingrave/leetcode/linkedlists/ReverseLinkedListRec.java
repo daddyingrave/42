@@ -2,27 +2,12 @@ package com.github.daddyingrave.leetcode.linkedlists;
 
 public class ReverseLinkedListRec {
   public ListNode reverseList(ListNode head) {
-    if (head == null) {
-      return null;
+    if (head == null || head.next == null) {
+      return head;
     }
-
-    var tail = head;
-    while (tail.next != null) {
-      tail = tail.next;
-    }
-
-    rec(null, head);
-
-    return tail;
-  }
-
-  private void rec(ListNode f, ListNode s) {
-    if (s == null) {
-      return;
-    }
-
-    var temp = s.next;
-    s.next = f;
-    rec(s, temp);
+    ListNode p = reverseList(head.next);
+    head.next.next = head;
+    head.next = null;
+    return p;
   }
 }
