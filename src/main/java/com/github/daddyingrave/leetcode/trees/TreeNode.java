@@ -3,6 +3,7 @@ package com.github.daddyingrave.leetcode.trees;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class TreeNode {
   public int val;
@@ -65,5 +66,18 @@ public class TreeNode {
       rec(h.left, level + 1, storage);
       rec(h.right, level + 1, storage);
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TreeNode treeNode = (TreeNode) o;
+    return this.toString().equals(treeNode.toString());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.toString());
   }
 }
