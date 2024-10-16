@@ -6,17 +6,24 @@ import java.util.PriorityQueue;
 
 public class ThirdMaximumNumber {
   public int thirdMax(int[] nums) {
-    var set = new HashSet<Integer>();
-    var heap = new PriorityQueue<Integer>(Comparator.reverseOrder());
-    for (int num : nums) {
-      if (set.add(num)) {
-        heap.add(num);
+    Integer first = null;
+    Integer second = null;
+    Integer third = null;
+
+    for (Integer num : nums) {
+      if (num.equals(first) || num.equals(second) || num.equals(third)) {
+        continue;
+      } else if (first == null || num > first) {
+        third = second;
+        second = first;
+        first = num;
+      } else if (second == null || num > second) {
+        third = second;
+        second = num;
+      } else if (third == null || num > third) {
+        third = num;
       }
     }
-
-    var first = heap.poll();
-    heap.poll();
-    var third = heap.poll();
 
     if (third != null) {
       return third;
