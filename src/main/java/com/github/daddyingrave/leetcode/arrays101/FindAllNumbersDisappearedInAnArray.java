@@ -22,4 +22,42 @@ public class FindAllNumbersDisappearedInAnArray {
 
     return result;
   }
+
+  // [-4,-1,0,3,10]
+  public int[] sortedSquares(int[] nums) {
+    int[] target = new int[nums.length];
+
+    int mid = 0;
+    for (int i = 0; i < nums.length; i++) {
+      mid = i;
+      if (nums[i] >= 0) {
+        break;
+      }
+    }
+
+    int left = mid;
+    int right = mid + 1;
+
+    int index = 0;
+    while (left >= 0 && right < nums.length) {
+      if (Math.abs(nums[left]) < nums[right]) {
+        target[index] = (int) Math.pow(nums[left], 2);
+        left--;
+      } else {
+        target[index] = (int) Math.pow(nums[right], 2);
+        right++;
+      }
+
+      index++;
+    }
+
+    while (left >= 0) {
+      target[index++] = (int) Math.pow(nums[left--], 2);
+    }
+    while (right < nums.length) {
+      target[index++] = (int) Math.pow(nums[right++], 2);
+    }
+
+    return target;
+  }
 }
