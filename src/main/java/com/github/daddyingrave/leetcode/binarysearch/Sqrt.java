@@ -19,6 +19,6 @@ public class Sqrt {
       }
     }
 
-    return Math.min(left, right);
+    return right;
   }
 }
