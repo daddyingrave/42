@@ -10,6 +10,8 @@ class SearchInRotatedSortedArrayTest {
   void search() {
     var problem = new SearchInRotatedSortedArray();
 
+    System.out.println(5 / 2);
+
     assertEquals(4, problem.search(new int[]{4, 5, 6, 7, 0, 1, 2}, 0));
     assertEquals(0, problem.search(new int[]{1, 3}, 1));
     assertEquals(0, problem.search(new int[]{1}, 1));
