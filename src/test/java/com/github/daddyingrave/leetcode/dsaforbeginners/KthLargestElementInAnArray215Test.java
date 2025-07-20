@@ -7,6 +7,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class KthLargestElementInAnArray215Test {
+
   Random rand = new Random();
 
   public int findKthLargest(int[] nums, int k) {
@@ -34,22 +35,23 @@ public class KthLargestElementInAnArray215Test {
     }
   }
 
-  int partition(int[] nums, int left, int right, int pivotIndex) {
-    int pivotValue = nums[pivotIndex];
-    swap(nums, pivotIndex, right);
-    int cur = left;
+  int partition(int[] nums, int left, int right, int pivot) {
+    int ptr = left;
+    int pivotValue = nums[pivot];
+    swap(nums, pivot, right);
 
     for (int i = left; i <= right; i++) {
       if (nums[i] < pivotValue) {
-        swap(nums, cur, i);
-        cur++;
+        swap(nums, ptr, i);
+        ptr++;
       }
     }
 
-    swap(nums, cur, right);
+    swap(nums, ptr, right);
 
-    return cur;
+    return ptr;
   }
+
 
   private void swap(int[] nums, int left, int right) {
     int tmp = nums[left];
