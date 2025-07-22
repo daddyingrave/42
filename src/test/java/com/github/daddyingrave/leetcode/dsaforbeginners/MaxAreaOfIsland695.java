@@ -34,10 +34,6 @@ public class MaxAreaOfIsland695 {
     area += dfs(grid, row, col + 1, rowMax, colMax);
     area += dfs(grid, row, col - 1, rowMax, colMax);
 
-    if (area == 5) {
-      System.out.println();
-    }
-
     return area;
   }
 
