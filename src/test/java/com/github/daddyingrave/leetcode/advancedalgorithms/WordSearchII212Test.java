@@ -2,12 +2,9 @@ package com.github.daddyingrave.leetcode.advancedalgorithms;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,22 +13,23 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 public class WordSearchII212Test {
   public List<String> findWords(char[][] board, String[] words) {
     var result = new HashSet<String>();
-    var trie = new Trie();
+    var trie = new TrieNode();
     for (String word : words) {
-      trie.insert(word);
+      trie.addWord(word);
     }
+
     char[][] visited = new char[board.length][board[0].length];
 
     for (int row = 0; row < board.length; row++) {
       for (int col = 0; col < board[row].length; col++) {
-        dfs(board, row, col, trie, new StringBuilder(), result, visited);
+        dfs(board, row, col, trie, "", result, visited);
       }
     }
 
     return new ArrayList<>(result);
   }
 
-  void dfs(char[][] board, int row, int col, Trie trie, StringBuilder sb, Set<String> result, char[][] visited) {
+  void dfs(char[][] board, int row, int col, TrieNode node, String word, Set<String> result, char[][] visited) {
     int rows = board.length;
     int cols = board[0].length;
 
@@ -44,82 +42,46 @@ public class WordSearchII212Test {
     if (visited[row][col] == '*') {
       return;
     }
-
-    sb.append(board[row][col]);
-    visited[row][col] = '*';
-
-    if (!trie.startsWith(sb.toString())) {
-      sb.deleteCharAt(sb.length() - 1);
-      visited[row][col] = '0';
+    if (node.children[board[row][col] - 'a'] == null) {
       return;
     }
 
-    if (trie.search(sb.toString())) {
-      result.add(sb.toString());
+    word += board[row][col];
+    visited[row][col] = '*';
+    node = node.children[board[row][col] - 'a'];
+    if (node.word) {
+      result.add(word);
+      node.word = false;
     }
 
-    dfs(board, row + 1, col, trie, sb, result, visited);
-    dfs(board, row - 1, col, trie, sb, result, visited);
-    dfs(board, row, col + 1, trie, sb, result, visited);
-    dfs(board, row, col - 1, trie, sb, result, visited);
+    dfs(board, row + 1, col, node, word, result, visited);
+    dfs(board, row - 1, col, node, word, result, visited);
+    dfs(board, row, col + 1, node, word, result, visited);
+    dfs(board, row, col - 1, node, word, result, visited);
 
     visited[row][col] = '0';
-    sb.deleteCharAt(sb.length() - 1);
   }
 
-  class Trie {
-    TrieNode root = new TrieNode();
+  static class TrieNode {
+    TrieNode[] children;
+    boolean word;
 
-    public Trie() {
+    TrieNode() {
+      children = new TrieNode[26];
     }
 
-    public void insert(String word) {
-      var curNode = root;
-      for (int i = 0; i < word.length(); i++) {
-        char c = word.charAt(i);
-        var nextNode = curNode.children.get(c);
-        if (nextNode == null) {
-          nextNode = new TrieNode();
-          curNode.children.put(c, nextNode);
+    public void addWord(String word) {
+      var cur = this;
+      for (char c : word.toCharArray()) {
+        var node = cur.children[c - 'a'];
+        if (node == null) {
+          node = new TrieNode();
         }
-
-        curNode = nextNode;
+        cur.children[c - 'a'] = node;
+        cur = node;
       }
 
-      curNode.word = true;
-    }
-
-    public boolean search(String word) {
-      var curNode = root;
-      for (int i = 0; i < word.length(); i++) {
-        var nextNode = curNode.children.get(word.charAt(i));
-        if (nextNode == null) {
-          return false;
-        }
-
-        curNode = nextNode;
-      }
-
-      return curNode.word;
-    }
-
-    public boolean startsWith(String prefix) {
-      var curNode = root;
-      for (int i = 0; i < prefix.length(); i++) {
-        var nextNode = curNode.children.get(prefix.charAt(i));
-        if (nextNode == null) {
-          return false;
-        }
-
-        curNode = nextNode;
-      }
-
-      return true;
-    }
-
-    static class TrieNode {
-      Map<Character, TrieNode> children = new HashMap<>();
-      boolean word;
+      cur.word = true;
     }
   }
 
