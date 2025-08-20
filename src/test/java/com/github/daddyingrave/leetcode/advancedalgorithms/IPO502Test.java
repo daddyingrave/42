@@ -29,7 +29,6 @@ public class IPO502Test {
         }
       }
 
-
       return w;
     }
   }
