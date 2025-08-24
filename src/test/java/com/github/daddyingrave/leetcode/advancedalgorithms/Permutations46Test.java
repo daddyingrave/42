@@ -3,15 +3,27 @@ package com.github.daddyingrave.leetcode.advancedalgorithms;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class Permutations46Test {
   class Solution {
     public List<List<Integer>> permute(int[] nums) {
-      var permutations = new
+      var permutations = new ArrayList<List<Integer>>();
+      permutations.add(new ArrayList<>());
+
+      for (int num : nums) {
+        var permutationsCopy = new ArrayList<List<Integer>>();
+        for (var permutation : permutations) {
+          for (int i = 0; i < permutation.size() + 1; i++) {
+            var copy = new ArrayList<>(permutation);
+            copy.add(i, num);
+            permutationsCopy.add(copy);
+          }
+        }
+        permutations = permutationsCopy;
+      }
+
+      return permutations;
     }
   }
 
