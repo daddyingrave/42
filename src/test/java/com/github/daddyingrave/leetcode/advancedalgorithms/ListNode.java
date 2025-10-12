@@ -1,10 +1,10 @@
 package com.github.daddyingrave.leetcode.advancedalgorithms;
 
 public class ListNode {
-  int val;
-  ListNode next;
+  public int val;
+  public ListNode next;
 
-  ListNode() {
+  public ListNode() {
   }
 
   ListNode(int val) {
