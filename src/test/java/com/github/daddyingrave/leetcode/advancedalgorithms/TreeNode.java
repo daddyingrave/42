@@ -1,14 +1,14 @@
 package com.github.daddyingrave.leetcode.advancedalgorithms;
 
 public class TreeNode {
-  int val;
-  TreeNode left;
-  TreeNode right;
+  public int val;
+  public TreeNode left;
+  public TreeNode right;
 
-  TreeNode() {
+  public TreeNode() {
   }
 
-  TreeNode(int val) {
+  public TreeNode(int val) {
     this.val = val;
   }
 
@@ -25,11 +25,11 @@ public class TreeNode {
     this.right = right;
   }
 
-  //    3
+  //    7
   //   / \
-  //  9  15
+  //  3  15
   //    /  \
-  //   15   70
+  //   9   20
   public static TreeNode TreeNodeDefault() {
     var root = new TreeNode(7);
     var left = new TreeNode(3);
