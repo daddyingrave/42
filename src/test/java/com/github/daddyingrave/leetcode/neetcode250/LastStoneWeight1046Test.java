@@ -35,4 +35,4 @@ public class LastStoneWeight1046Test {
 
   }
 }
-`
+
