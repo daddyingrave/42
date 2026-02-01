@@ -21,7 +21,7 @@ public class RottingOranges994Test {
       for (int row = 0; row < grid.length; row++) {
         for (int col = 0; col < grid[row].length; col++) {
           if (grid[row][col] == 1) {
-            return - 1;
+            return -1;
           } else if (grid[row][col] < 0) {
             totalToRot = Math.max(totalToRot, -grid[row][col]);
           }
@@ -38,6 +38,7 @@ public class RottingOranges994Test {
         return;
       }
 
+      
       if (grid[row][col] == 1 || grid[row][col] < rotCounter) {
         grid[row][col] = rotCounter;
       }
@@ -59,9 +60,9 @@ public class RottingOranges994Test {
   @Test
   void test() {
     new Solution().orangesRotting(new int[][]{
-        {1,1,0},
-        {0,1,1},
-        {0,1,2}
+        {1, 1, 0},
+        {0, 1, 1},
+        {0, 1, 2}
     });
   }
 }
