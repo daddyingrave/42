@@ -23,12 +23,10 @@ public class RedundantConnection684Test {
 
       var visited = new HashSet<Integer>();
       var cycle = new HashSet<Integer>();
-      for (int i = 1; i <= edges.length; i++) {
-        if (dfs(i, -1, adj, visited, cycle) != -1) {
-          for (int j = edges.length - 1; j >= 0; j--) {
-            if (cycle.contains(edges[j][0]) && cycle.contains(edges[j][1])) {
-              return new int[]{edges[j][0], edges[j][1]};
-            }
+      if (dfs(1, -1, adj, visited, cycle) == -1) {
+        for (int j = edges.length - 1; j >= 0; j--) {
+          if (cycle.contains(edges[j][0]) && cycle.contains(edges[j][1])) {
+            return new int[]{edges[j][0], edges[j][1]};
           }
         }
       }
@@ -38,6 +36,7 @@ public class RedundantConnection684Test {
 
     int dfs(int node, int parent, List<Set<Integer>> adj, Set<Integer> visited, Set<Integer> cycle) {
       if (visited.contains(node)) {
+        cycle.add(node);
         return node;
       }
 
@@ -65,6 +64,9 @@ public class RedundantConnection684Test {
 
   @Test
   void test() {
+    var sol = new Solution();
+    assertArrayEquals(new int[]{2, 3}, sol.findRedundantConnection(new int[][]{{1, 2}, {1, 3}, {2, 3}}));
+    assertArrayEquals(new int[]{1, 4}, sol.findRedundantConnection(new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 4}, {1, 5}}));
 
   }
 }
