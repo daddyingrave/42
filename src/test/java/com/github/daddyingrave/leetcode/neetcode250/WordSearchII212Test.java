@@ -44,9 +44,9 @@ public class WordSearchII212Test {
     }
 
     int[][] directions = new int[][]{
-        {0, 1}, // right
+        {0, 1}, // col
         {1, 0}, // bottom
-        {0, -1}, // left
+        {0, -1}, // row
         {-1, 0}, // up
     };
 
